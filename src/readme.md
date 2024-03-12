@@ -13,7 +13,7 @@
 - package-lock.json: 缓存性文件（各种包的来源）
 
 # 2、项目配置
-2.1 项目运行，浏览器自动打开
+2.1 项目运行，浏览器自动打开(不习惯，关了)
 ```js
 package.json
     "scripts": {
@@ -50,3 +50,10 @@ module.exports = {
     ]
  }
 ```
+
+# 3、组件页面样式
+组件页面的样式使用的是less样式，浏览器不识别该样式，需要下载相关依赖
+`npm install --save less less-loader@5`
+由于：less-loader@5 依赖于 webpack@4.47.0，而我的项目中已经安装了 webpack@5.90.3，这两个版本不兼容。所以我将不指定less-loader版本，命令：``npm install --save less-loader``
+如果想让组件识别less样式，则在组件中设置
+`<script scoped lang="less">`
