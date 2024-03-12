@@ -1,3 +1,16 @@
+目前各目录：
+-public
+    --reset.css
+-components
+    --Footer
+        --images
+            --vx_cz.jpg
+        --index.vue
+    --Header
+        --images
+            --logo.png
+        --index.vue
+
 # 1、各目录介绍
 - public文件夹：静态资源，webpack进行打包的时候会原封不动打包到dist文件夹中。
   - public/index.html是一个模板文件，作用是生成项目的入口文件，webpack打包的js,css也会自动注入到该页面中。我们浏览器访问项目的时候就会默认打开生成好的index.html。

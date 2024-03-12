@@ -28,7 +28,7 @@
         <div class="bottom">
             <h1 class="logoArea">
                 <a class="logo" title="尚品汇" href="###" target="_blank">
-                    <img src="../assets/logo.png" alt="">
+                    <img src="./images/logo.png" alt="">
                 </a>
             </h1>
             <div class="searchArea">
@@ -46,7 +46,7 @@ export default {
     name:'Header',
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
     .header {
         &>.top {
             background-color: #eaeaea;
