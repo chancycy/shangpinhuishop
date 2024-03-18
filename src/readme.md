@@ -1,4 +1,5 @@
 目前各目录：
+```
 -public
     --reset.css
 -components
@@ -10,6 +11,19 @@
         --images
             --logo.png
         --index.vue
+-pages
+    --Home
+        --index.vue
+    --Login
+        --index.vue
+    --Register
+        --index.vue
+    --Search
+        --index.vue
+-router
+    --index.js
+
+```
 
 # 1、各目录介绍
 - public文件夹：静态资源，webpack进行打包的时候会原封不动打包到dist文件夹中。
@@ -70,3 +84,26 @@ module.exports = {
 由于：less-loader@5 依赖于 webpack@4.47.0，而我的项目中已经安装了 webpack@5.90.3，这两个版本不兼容。所以我将不指定less-loader版本，命令：``npm install --save less-loader``
 如果想让组件识别less样式，则在组件中设置
 `<script scoped lang="less">`
+
+# 4、清除vue页面默认的样式  
+vue是单页面开发，我们只需要修改public下的index.html文件
+
+`<link rel="stylesheet" href="reset.css">`
+
+# 5、路由
+安装：``npm i vue-router@3``
+
+创建pages文件夹，并创建路由组件
+5.1创建router文件夹，并创建index.js进行路由配置，最终在main.js中引入注册
+
+5.2 总结  
+路由组件和非路由组件区别：
+- 非路由组件放在components中，路由组件放在pages或views中
+- 非路由组件通过标签使用，路由组件通过路由使用
+- 在main.js注册玩路由，所有的路由和非路由组件身上都会拥有$router $route属性
+- $router：一般进行编程式导航进行路由跳转
+- $route： 一般获取路由信息（name path params等）
+
+5.3 路由跳转方式   
+- 声明式导航router-link标签 <router-link to=“path”>,可以把router-link理解为一个a标签，它 也可以加class修饰
+- 编程式导航：声明式导航能做的编程式都能做，而且还可以处理一些业务
