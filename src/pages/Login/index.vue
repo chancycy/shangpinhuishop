@@ -1,15 +1,12 @@
 <template>
-    <div>
-      登录页
-    </div>
-  </template>
+  <div>登录页</div>
+</template>
   
   <script>
-  export default {
-      name:'login',
-  }
-  </script>
+export default {
+  name: "login",
+};
+</script>
   
   <style>
-  
-  </style>
+</style>
