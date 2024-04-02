@@ -107,3 +107,11 @@ vue是单页面开发，我们只需要修改public下的index.html文件
 5.3 路由跳转方式   
 - 声明式导航router-link标签 <router-link to=“path”>,可以把router-link理解为一个a标签，它 也可以加class修饰
 - 编程式导航：声明式导航能做的编程式都能做，而且还可以处理一些业务
+
+# 6、footer组件显示与隐藏
+- footer在登录注册页面是不存在的，所以要隐藏，v-if 或者 v-show
+- 这里使用v-show，因为v-if会频繁的操作dom元素消耗性能，v-show只是通过样式将元素显示或隐藏
+- 配置路由的时候，可以给路由配置元信息meta,
+- 在路由的原信息中定义show属性，用来给v-show赋值，判断是否显示footer组件
+  
+#

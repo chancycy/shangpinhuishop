@@ -2,7 +2,9 @@
   <div id="app">
     <Header/>
     <router-view></router-view>
-    <Footer/>
+    <!-- home和search中显示，login、register中隐藏 这里使用v-show -->
+    <!-- <Footer v-show="$route.path === '/home' || $route.path === '/search'"/> -->
+    <Footer v-show="$route.meta.show"/>
   </div>
 </template>
 
