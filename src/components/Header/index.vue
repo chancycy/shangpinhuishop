@@ -38,6 +38,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
+            v-model="keyword"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -55,9 +56,29 @@
 <script>
 export default {
   name: "Header",
+  data() {
+    return {
+      keyword: "",
+    };
+  },
   methods: {
     goSearch() {
-      this.$router.push("/search");
+      // this.$router.push("/search");
+
+      // 跳转search页面时携带参数（不然我搜的具体是什么东西search页面怎么知道）
+      this.$router.push(
+        // 为作区分，query传的是keyword的大写
+        // 路由跳转传参(params和query)：1.字符串形式写法
+        // "/search/" + this.keyword + "?k=" + this.keyword.toUpperCase()
+        // 2.模板字符串形式写法
+        // `/search/${this.keyword}?k=${this.keyword.toUpperCase()}`
+        // 3.对象形式写法————最常用
+        {
+          name: "search",
+          query: { k: this.keyword.toUpperCase() },
+          params: { keyword: this.keyword },
+        }
+      );
     },
   },
 };
