@@ -227,3 +227,23 @@ console.log(result)
 - 这种写法治标不治本，将来在别的组件中push|replace,编程式导航还是会有类似错误。
 - push是VueRouter.prototype的一个方法，在router中的index重写该方法即可
 
+- 重写的具体代码如下：
+```js
+// 1.先将原本的push方法先保存一份
+let originPush = VueRouter.prototype.push
+// 2.重新自己的push和replace方法
+// location：告诉原来push方法，该往哪跳（传递哪些参数）
+VueRouter.prototype.push = function (location, resolve, reject) {
+    console.log('this :>> ', this);
+    if (resolve && reject) {
+        // 如果直接调用originPush,此时this指向window，需要使用call改变this指向vueRouter
+        // call 和 apply 相同点：都可以调用函数一次，都可以修改函数的this一次
+        // 不同： call传递参数用逗号隔开；apply传参传递数组
+        originPush.call(this, location, resolve, reject)
+    }
+    else {
+        originPush.call(this, location, () => { }, () => { })
+    }
+}
+```
+
