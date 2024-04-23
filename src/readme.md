@@ -247,3 +247,23 @@ VueRouter.prototype.push = function (location, resolve, reject) {
 }
 ```
 
+# 8、三级联动组件
+由于三级联动组件在home、search、detail组件都存在，所以将其作为全局组件来使用。但这个主要是用在home页的，所以建在home页下。
+```js
+// 引入三级联动组件--并注册为全局组件
+import TypeNav from './pages/Home/TypeNav'  // 引入
+// 第一个参数————全局组件名字；第二个参数————全局组件
+Vue.component(TypeNav.name, TypeNav) // 注册
+```
+
+在Home组件中使用该全局组件
+
+```vue
+<template>
+<div>
+<!-- 三级联动全局组件已经注册为全局组件，因此不需要引入 -->
+  <TypeNav/>
+</div>
+</template>
+```
+
