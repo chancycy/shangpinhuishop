@@ -1,3 +1,7 @@
+接口：http://gmall-h5-api.atguigu.cn/api/product/getBaseCategoryList
+`/api`开始往后为不同的请求地址
+---
+
 目前各目录：
 ```
 -public
@@ -300,4 +304,50 @@ requests.interceptors.response.use((res) => {
 export default requests;
 ```
 
-# 10、
+# 10、接口统一管理
+在api文件夹下建立index.js文件进行统一管理
+```js
+//当前模块，API进行统一管理，即对请求接口统一管理
+import requests from "@/api/request";
+
+//首页三级分类接口
+export const reqCateGoryList = () => {
+    return  requests({
+        url: '/product/getBaseCategoryList',
+        method: 'GET'
+    })
+}
+```
+当组件想要使用相关请求时，只需要导入相关函数即可，以上图的reqCateGoryList 为例:
+```js
+import {reqCateGoryList} from './api'
+//发起请求
+reqCateGoryList();
+```
+导入了三级联动接口后，进行单元测试发现404了，是因为存在跨域问题
+什么是跨域：协议、域名、端口号不同请求。
+解决方法1：在api/request.js文件里将baseUrl从'/api'改成了'http://gmall-h5-api.atguigu.cn'接口地址
+解决方法2：通过代理服务器来解决跨域。在vue.config.js文件中进行如下修改：（加上devServer）
+```js
+module.exports = {
+    //关闭eslint
+    lintOnSave: false,
+    devServer: {
+        // true 则热更新，false 则手动刷新，默认值为 true
+        inline: false,
+        // development server port 8000
+        port: 8001,
+        //代理服务器解决跨域
+        proxy: {
+            //会把请求路径中的/api换为后面的代理服务器
+            '/api': {
+                //提供数据的服务器地址
+                target: 'http://gmall-h5-api.atguigu.cn',
+
+            }
+        },
+    }
+}
+```
+[webpack官网相关知识解读](https://webpack.docschina.org/configuration/dev-server/#devserverproxy)
+

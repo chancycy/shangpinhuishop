@@ -11,6 +11,10 @@ import TypeNav from './pages/Home/TypeNav'  // 引入
 // 第一个参数————全局组件名字；第二个参数————全局组件
 Vue.component(TypeNav.name, TypeNav) // 注册
 
+// 进行单元测试，看看三级联动接口是否成功
+import { reqCategoryList } from '@/api';
+reqCategoryList();
+
 new Vue({
   render: h => h(App),
   // 注册路由，下面这句写完之后，每个组件身上就有了$router和$route
