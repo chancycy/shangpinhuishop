@@ -351,3 +351,13 @@ module.exports = {
 ```
 [webpack官网相关知识解读](https://webpack.docschina.org/configuration/dev-server/#devserverproxy)
 
+# 11、nprogress进度条插件
+我们页面加载时发起了一个请求，此时页面上方出现蓝色进度条。
+打开一个页面时，往往会伴随一些请求，并且会在页面上方出现进度条。它的原理时，在我们发起请求的时候开启进度条，在请求成功后关闭进度条，所以只需要在request.js中进行配置。
+    （在请求和响应拦截器做。请求时开始请求开启，响应成功后结束）
+
+先`npm i nprogress`
+
+
+
+
