@@ -353,11 +353,38 @@ module.exports = {
 
 # 11、nprogress进度条插件
 我们页面加载时发起了一个请求，此时页面上方出现蓝色进度条。
+即调用接口的时候给点反应（给个进度条表示加载情况）
 打开一个页面时，往往会伴随一些请求，并且会在页面上方出现进度条。它的原理时，在我们发起请求的时候开启进度条，在请求成功后关闭进度条，所以只需要在request.js中进行配置。
     （在请求和响应拦截器做。请求时开始请求开启，响应成功后结束）
 
 先`npm i nprogress`
+然后
+```js
+//引入进度条
+import nprogress from 'nprogress';
+//引入进度条样式
+import "nprogress/nprogress.css";
+```
+再在request.js里的请求拦截器和响应拦截器里调用
+```js
+// 请求拦截器：在发请求之前，请求拦截器可以检测到，可以在请求发出前做一些事情
+requests.interceptors.request.use((config) => {
+    // 进度条开始动
+    nprogress.start();
+    // config:配置对象，存在一个重要属性，请求头header
+    return config;
+})
 
+// 响应拦截器，需要传成功和失败的回调
+requests.interceptors.response.use(res => {
+    // 进度条结束
+    nprogress.done();
+    // 成功的回调函数：服务器响应数据回来以后，响应拦截器可以检测到，可以做些事情
+    return res.data
+}, err => {。。。})
+```
+
+# 12 
 
 
 
