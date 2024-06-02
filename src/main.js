@@ -5,6 +5,8 @@ Vue.config.productionTip = false
 
 // 引入vue-router
 import router from './router';
+// 引入vuex的store
+import store from '@/store';
 
 // 引入三级联动组件--并注册为全局组件
 import TypeNav from './pages/Home/TypeNav'  // 引入
@@ -19,4 +21,6 @@ new Vue({
   render: h => h(App),
   // 注册路由，下面这句写完之后，每个组件身上就有了$router和$route
   router,
+  // 注册仓库；组件实例身上就有了$store属性
+  store,
 }).$mount('#app')

@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!-- store的小小使用 -->
+    <button @click="addCount">通过vuex，点击 +1</button>
+    <div>分割---仓库state的数据count的值: {{ count }}</div>
+    <button>通过vuex，点击 -1</button>
+
     <!-- home主页 -->
     <!-- 三级联动全局组件已注册为全局组件，不需要引入 -->
     <TypeNav />
@@ -23,6 +28,9 @@ import Like from "@/pages/Home/Like";
 import Floor from "@/pages/Home/Floor";
 import Brand from "@/pages/Home/Brand";
 
+// 引入mapState
+import { mapState } from "vuex";
+
 export default {
   name: "home",
   components: {
@@ -32,6 +40,15 @@ export default {
     Like,
     Floor,
     Brand,
+  },
+  computed: {
+    ...mapState(["count"]),
+  },
+  methods: {
+    addCount() {
+      // 派发actions
+      this.$store.dispatch("addCount");
+    },
   },
 };
 </script>

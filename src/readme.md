@@ -384,7 +384,74 @@ requests.interceptors.response.use(res => {
 }, err => {。。。})
 ```
 
-# 12 
+# 12、vuex相关内容
+## 12.1 vuex的安装
+安装vuex:vue2要安装vuex3版本，命令--``npm i vuex@3``
+在src目录下创建store文件夹，新建index.js
+```js
+import Vue from 'vue';
+import Vuex from 'vuex';
+// 使用一次
+Vue.use(Vuex);
+
+const state = {};
+// 修改state的唯一手段
+const mutations = {};
+// 书写业务逻辑，也可以处理异步
+const actions = {};
+// 相当于vuex的对state的计算属性
+const getters = {};
+
+// 对外暴露store类的一个实例
+export default new Vuex.Store({
+    state, mutations, actions, getters
+})
+```
+在main中引入store
+``import store from '@/store'``以及new Vue里配置加上store`new Vue({.....,store}).$mount('#app')`
+
+## 12.2 vuex的基本使用（基础教学时讲过）
+注意点：
+  1. `dispatch`和actions对话，`commit`和mutations对话。即第三点。
+   2. actions可以当做是服务员，mutations可以当做是厨师。
+    3. store的index里actions里头的方法名和vue组件里调用时（例如按钮点击名）一般是一样的
+    4. 注意store的index.js里actions、mutations等的传参。
+index.js文件
+```js
+const state = {
+    count: 1
+};
+// 修改state的唯一手段
+const mutations = {
+    ADD_COUNT(state) {
+        state.count++
+    }
+};
+// 书写业务逻辑，也可以处理异步
+const actions = {
+    // 可以写业务逻辑但不能修改state
+    addCount({ commit }) {
+        commit("ADD_COUNT")
+    }
+};
+```
+
+```js
+<!-- store的小小使用 -->
+    <button @click="addCount">通过vuex，点击 +1</button>
+    <div>分割---仓库state的数据count的值: {{ count }}</div>
+    <button>通过vuex，点击 -1</button>
+
+computed: {
+    ...mapState(["count"]),
+  },
+  methods: {
+    addCount() {
+      // 派发actions
+      this.$store.dispatch("addCount");
+    },
+  },
+```
 
 
 
