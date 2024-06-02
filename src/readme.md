@@ -453,5 +453,34 @@ computed: {
   },
 ```
 
+## 12.3 vuex--开启命名空间，分块管理vuex
+仓库式管理数据，每个模块管理自己的数据
+`namespaced: true`不是一定要写，以下就可以了：
+store/index.js:
+```js
+// 引入小仓库
+import home from './home';
+import search from './search';
+
+export default new Vuex.Store({
+    // 下面这行代码实现vuex仓库模块化开发存储
+    modules: {
+        home, search,
+    },
+})
+```
+/store/home/index.js举例：
+```js
+// home模块的小仓库
+const state = { a: 1, }
+const actions = {}
+const mutations = {}
+const getters = {}
+
+export default {
+    state, actions, mutations, getters
+}
+```
+
 
 
