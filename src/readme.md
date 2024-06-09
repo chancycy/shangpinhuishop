@@ -482,5 +482,8 @@ export default {
 }
 ```
 
+# 13、动态展示typeNav三级联动展示数据(实战)
+typeNav：全部商品分类--图书、音像、数字商品...etc--电子书...etc 三层标题
+由于这是个全局组件，我们将其放到components里（TypeNav原本在pages/Home下里）
 
 

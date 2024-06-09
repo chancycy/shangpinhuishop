@@ -9,13 +9,16 @@ import router from './router';
 import store from '@/store';
 
 // 引入三级联动组件--并注册为全局组件
-import TypeNav from './pages/Home/TypeNav'  // 引入
+// import TypeNav from './pages/Home/TypeNav'  // 引入
+import TypeNav from '@/components/TypeNav'  // 在13时改了存放地址
+
 // 第一个参数————全局组件名字；第二个参数————全局组件
 Vue.component(TypeNav.name, TypeNav) // 注册
 
+// 在13时，去掉了以下的单元测试
 // 进行单元测试，看看三级联动接口是否成功
-import { reqCategoryList } from '@/api';
-reqCategoryList();
+// import { reqCategoryList } from '@/api';
+// reqCategoryList();
 
 new Vue({
   render: h => h(App),
