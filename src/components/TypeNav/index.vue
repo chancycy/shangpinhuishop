@@ -2,7 +2,8 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div>
+      <!-- 事件委派|事件委托 -->
+      <div @mouseleave="leaveIndex">
         <h2 class="all">全部商品分类</h2>
         <div class="sort">
           <div class="all-sort-list2">
@@ -12,7 +13,7 @@
               :key="c1.categoryId"
               :class="{ cur: currentIndex == index }"
             >
-              <h3 @mouseenter="changeIndex(index)" @mouseleave="leaveIndex">
+              <h3 @mouseenter="changeIndex(index)">
                 <a href="">{{ c1.categoryName }}</a>
               </h3>
               <div class="item-list clearfix">
