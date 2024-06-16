@@ -501,5 +501,6 @@ typeNav：全部商品分类--图书、音像、数字商品...etc--电子书...
 解决方法2：添加动态class、使用@mouseenter和@mouseleave的vue鼠标移入移出方法
     最开始时是给h3这样加的：`<h3 @mouseenter="changeIndex(index)" @mouseleave="leaveIndex">`
     但是不符合最终要求：鼠标移到“全部商品分类”时，某个一级分类的背景色还要在。
+    由于此时“全部商品分类”在h2里，和添加的动态class的h3的父级 是兄弟关系，所以我们选择改下html结构，给他俩包一层
 
 
