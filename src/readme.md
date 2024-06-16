@@ -483,7 +483,13 @@ export default {
 ```
 
 # 13、动态展示typeNav三级联动展示数据(实战)
+## 13.1 更新目录
 typeNav：全部商品分类--图书、音像、数字商品...etc--电子书...etc 三层标题
 由于这是个全局组件，我们将其放到components里（TypeNav原本在pages/Home下里）
+
+## 13.2 通过调用接口展示真实数据（运用mapState、v-for）
+将typeNav里原先写死的数据通过vuex状态管理调用接口 更新数据，让数据是来自于后台取的。
+直接用v-for 来循环取接口返回的数组（数组里又是对象，对象里又是数组；要有会写v-for的能力啊宝）
+弹幕看到：假如之后数组里超了，导致页面展示不下了，在v-for时可以巧用`.slice方法` `v-for="c1 in categoryList.slice(0,10)"`（大概是这个吧，就是截取前xxx个展示）
 
 
