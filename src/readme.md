@@ -492,4 +492,14 @@ typeNav：全部商品分类--图书、音像、数字商品...etc--电子书...
 直接用v-for 来循环取接口返回的数组（数组里又是对象，对象里又是数组；要有会写v-for的能力啊宝）
 弹幕看到：假如之后数组里超了，导致页面展示不下了，在v-for时可以巧用`.slice方法` `v-for="c1 in categoryList.slice(0,10)"`（大概是这个吧，就是截取前xxx个展示）
 
+## 13.3 （样式能解决 但用js）三级联动 动态背景颜色（对应视频p20）
+鼠标挪放到一级菜单上时 有蓝色背景（现在是只有自带的a标签的下划线）
+不用css用js是让知道v-for的:class样式名匹配方法，这个方法在很多场景都很常用
+(重点：学习 使用事件委托进行事件绑定)
+
+解决方法1：css改样式`:hover{background: skyblue;}`(就不用，就要用js)
+解决方法2：添加动态class、使用@mouseenter和@mouseleave的vue鼠标移入移出方法
+    最开始时是给h3这样加的：`<h3 @mouseenter="changeIndex(index)" @mouseleave="leaveIndex">`
+    但是不符合最终要求：鼠标移到“全部商品分类”时，某个一级分类的背景色还要在。
+
 

@@ -15,8 +15,13 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div class="item" v-for="c1 in categoryList" :key="c1.categoryId">
-            <h3>
+          <div
+            class="item"
+            v-for="(c1, index) in categoryList"
+            :key="c1.categoryId"
+            :class="{ cur: currentIndex == index }"
+          >
+            <h3 @mouseenter="changeIndex(index)" @mouseleave="leaveIndex">
               <a href="">{{ c1.categoryName }}</a>
             </h3>
             <div class="item-list clearfix">
@@ -48,6 +53,12 @@
 import { mapState } from "vuex";
 export default {
   name: "TypeNav",
+  data() {
+    return {
+      // 添加一个响应式属性 对应存储用户鼠标碰到的是哪一个分类
+      currentIndex: -1,
+    };
+  },
   computed: {
     // ...mapState(["categoryList"]), // 对象写法
     ...mapState({
@@ -62,6 +73,17 @@ export default {
   mounted() {
     // 通知vuex发请求，获取数据，存在仓库中
     this.$store.dispatch("categoryList");
+  },
+  methods: {
+    // 鼠标进入修改响应式数据currentIndex
+    changeIndex(index) {
+      // index是鼠标移上去时对应的下标（一级元素的索引值）
+      this.currentIndex = index;
+    },
+    // 鼠标移除时的动作触发的方法
+    leaveIndex() {
+      this.currentIndex = -1;
+    },
   },
 };
 </script>
@@ -181,6 +203,14 @@ export default {
               display: block;
             }
           }
+        }
+        // 13.3 加背景色 加css样式就能解决（以下） 但就不用，要用js做（目的是为了熟悉事件委派）
+        // .item:hover{
+        //   background: skyblue;
+        // }
+
+        .cur {
+          background: skyblue;
         }
       }
     }
