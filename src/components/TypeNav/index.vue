@@ -5,6 +5,7 @@
       <!-- 事件委派|事件委托 -->
       <div @mouseleave="leaveIndex">
         <h2 class="all">全部商品分类</h2>
+        <!-- 三级联动 -->
         <div class="sort">
           <div class="all-sort-list2">
             <div
@@ -16,7 +17,11 @@
               <h3 @mouseenter="changeIndex(index)">
                 <a href="">{{ c1.categoryName }}</a>
               </h3>
-              <div class="item-list clearfix">
+              <!-- 二级、三级分类 -->
+              <div
+                class="item-list clearfix"
+                :style="{ display: currentIndex == index ? 'block' : 'none' }"
+              >
                 <div
                   class="subitem"
                   v-for="c2 in c1.categoryChild"
@@ -202,11 +207,11 @@ export default {
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          // &:hover {
+          //   .item-list {
+          //     display: block;
+          //   }
+          // }
         }
         // 13.3 加背景色 加css样式就能解决（以下） 但就不用，要用js做（目的是为了熟悉事件委派）
         // .item:hover{

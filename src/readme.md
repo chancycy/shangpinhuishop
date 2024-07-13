@@ -504,4 +504,22 @@ typeNav：全部商品分类--图书、音像、数字商品...etc--电子书...
     由于此时“全部商品分类”在h2里，和添加的动态class的h3的父级 是兄弟关系，所以我们选择改下html结构，给他俩包一层。将`@mouseleave="leaveIndex"`给他们的父元素div（即新加的这个div）
     最终变成：`<div @mouseleave="leaveIndex">`
 
+## 13.4 用js（:style）去控制二三级菜单的显示与隐藏（对应视频p21）
+代码原先是用css代码（display: none/block）去控制当鼠标移到一级菜单时展示二三级菜单，即：
+```js
+.item-list {
+    display: none;
+}
+&:hover {
+    .item-list {
+        display: block;
+    }
+}
+```
+我们采用动态样式来完成，鼠标选中即增加样式。`:style="{ display: currentIndex == index ? 'block' : 'none' }"`
+
+
+# 14、防抖、节流
+
+
 
