@@ -88,6 +88,7 @@ export default {
     changeIndex(index) {
       // index是鼠标移上去时对应的下标（一级元素的索引值）
       this.currentIndex = index;
+      console.log("鼠标进入 :>> ", index);
     },
     // 鼠标移除时的动作触发的方法
     leaveIndex() {
