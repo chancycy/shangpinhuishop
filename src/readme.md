@@ -520,8 +520,8 @@ typeNav：全部商品分类--图书、音像、数字商品...etc--电子书...
 
 
 # 14、防抖(debounce)和节流(throttle)
-## 14.1 引入防抖节流概念
-需要借助lodash，npm下载或官网下载引入。
+## 14.1 引入防抖节流概念（p22-p24）
+需要借助lodash，npm下载或官网下载引入。（更新：node中已经自带lodash，无需自己手动下载）
 如果在changeIndex加入一个console，就会发现：鼠标慢慢挪时，对应的每个改变的index是会输出的；但快速划过时则并不会每一个每一个index都打印。
 即：事件触发很频繁，每一次触发回调函数都要去执行。当时间很短并且回调函数内部有计算，那么浏览器则会卡顿。
 ```js
@@ -538,6 +538,24 @@ changeIndex(index) {
 都是用户操作很频繁，防抖是只执行一次，节流是把频繁操作变为少量操作（给浏览器充足时间解析代码）
 底层原理都是：闭包+延迟器。
 
+## 14.2 实战--给三级联动组件加上节流(p25)
+由于node里有lodash，直接引入使用即可，无需npm安装
+`import _ from "lodash"`（这会引入lodash全部的功能函数）
+也可以按需引入：`import throttle from "lodash/throttle"`
+```js
+// 旧代码：
+    changeIndex(index) {
+      // index是鼠标移上去时对应的下标（一级元素的索引值）
+      this.currentIndex = index;
+      console.log("鼠标进入 :>> ", index);
+    },
+// 新代码：
+    // 为了使用节流，然后为了能用上_.lodash，选择es5的函数写法
+    // throttle回调函数别用箭头函数，上下文this可能会有问题。
+    changeIndex: throttle(function (index) {
+      this.currentIndex = index;
+    }, 50),
+```
 
 
 
