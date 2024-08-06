@@ -15,7 +15,8 @@
               :class="{ cur: currentIndex == index }"
             >
               <h3 @mouseenter="changeIndex(index)">
-                <a href="">{{ c1.categoryName }}</a>
+                <!-- <a href="">{{ c1.categoryName }}</a> -->
+                <router-link to="/search">{{ c1.categoryName }}</router-link>
               </h3>
               <!-- 二级、三级分类 -->
               <div
@@ -29,11 +30,17 @@
                 >
                   <dl class="fore">
                     <dt>
-                      <a href="">{{ c2.categoryName }}</a>
+                      <!-- <a href="">{{ c2.categoryName }}</a> -->
+                      <router-link to="/search">{{
+                        c2.categoryName
+                      }}</router-link>
                     </dt>
                     <dd>
                       <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a href="">{{ c3.categoryName }}</a>
+                        <!-- <a href="">{{ c3.categoryName }}</a> -->
+                        <router-link to="/search">{{
+                          c1.categoryName
+                        }}</router-link>
                       </em>
                     </dd>
                   </dl>

@@ -557,5 +557,21 @@ changeIndex(index) {
     }, 50),
 ```
 
+# 15 编程式导航+事件委托实现路由跳转
+## 15.1 三级联动组件路由跳转与传递参数
+点击后会从home页携带产品信息（产品名字、id）跳转到search页
+
+路由跳转：
+1.声明式导航：router-link
+2.编程式导航：push / replace
+
+先使用下声明式导航（先不传参数）
+将TypeNav/index.vue的a标签改为router-link，，这里只展示一级目录的修改，二三级目录修改相同
+```js
+// <!-- <a href="">{{ c1.categoryName }}</a> -->
+<router-link to="/search">{{ c1.categoryName }}</router-link>
+```
+存在的缺点：会出现卡顿；因为router-link实际是一个组件，服务器数据返回后，创建组件实例（这循环了快1000+次）
+所以会有卡顿。
 
 
