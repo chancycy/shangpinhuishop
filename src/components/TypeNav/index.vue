@@ -15,8 +15,7 @@
               :class="{ cur: currentIndex == index }"
             >
               <h3 @mouseenter="changeIndex(index)">
-                <!-- <a href="">{{ c1.categoryName }}</a> -->
-                <router-link to="/search">{{ c1.categoryName }}</router-link>
+                <a @click="goSearch">{{ c1.categoryName }}</a>
               </h3>
               <!-- 二级、三级分类 -->
               <div
@@ -30,17 +29,11 @@
                 >
                   <dl class="fore">
                     <dt>
-                      <!-- <a href="">{{ c2.categoryName }}</a> -->
-                      <router-link to="/search">{{
-                        c2.categoryName
-                      }}</router-link>
+                      <a @click="goSearch">{{ c2.categoryName }}</a>
                     </dt>
                     <dd>
                       <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <!-- <a href="">{{ c3.categoryName }}</a> -->
-                        <router-link to="/search">{{
-                          c1.categoryName
-                        }}</router-link>
+                        <a @click="goSearch">{{ c3.categoryName }}</a>
                       </em>
                     </dd>
                   </dl>
@@ -105,6 +98,9 @@ export default {
     // 鼠标移除时的动作触发的方法
     leaveIndex() {
       this.currentIndex = -1;
+    },
+    goSearch() {
+      this.$router.push("/search");
     },
   },
 };

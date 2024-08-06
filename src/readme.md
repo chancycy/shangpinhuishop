@@ -566,12 +566,26 @@ changeIndex(index) {
 2.编程式导航：push / replace
 
 先使用下声明式导航（先不传参数）
-将TypeNav/index.vue的a标签改为router-link，，这里只展示一级目录的修改，二三级目录修改相同
+将TypeNav/index.vue的a标签改为router-link，这里只展示一级目录的修改，二三级目录修改相同
 ```js
 // <!-- <a href="">{{ c1.categoryName }}</a> -->
 <router-link to="/search">{{ c1.categoryName }}</router-link>
 ```
 存在的缺点：会出现卡顿；因为router-link实际是一个组件，服务器数据返回后，创建组件实例（这循环了快1000+次）
 所以会有卡顿。
+
+使用编程式导航(同样也先不传参数)
+```js
+<a @click="goSearch">{{ c1.categoryName }}</a>
+<a @click="goSearch">{{ c2.categoryName }}</a>
+<a @click="goSearch">{{ c3.categoryName }}</a>
+
+goSearch() {
+    this.$router.push("/search");
+},
+```
+问题：不卡顿；但是最后每个a标签都要绑定自己的回调，循环还是会导致有1000+个回调函数
+
+
 
 
