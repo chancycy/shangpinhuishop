@@ -3,10 +3,10 @@
   <div class="type-nav">
     <div class="container">
       <!-- 事件委派|事件委托 -->
-      <div @mouseleave="leaveIndex">
+      <div @mouseleave="leaveShow" @mouseenter="enterShow">
         <h2 class="all">全部商品分类</h2>
         <!-- 三级联动 -->
-        <div class="sort">
+        <div class="sort" v-show="show">
           <div class="all-sort-list2" @click="goSearch">
             <div
               class="item"
@@ -80,6 +80,7 @@ export default {
     return {
       // 添加一个响应式属性 对应存储用户鼠标碰到的是哪一个分类
       currentIndex: -1,
+      show: true,
     };
   },
   computed: {
@@ -132,6 +133,19 @@ export default {
       this.$router.push(location);
       // console.log('event.target.dataset.categoryname :>> ', event.target.dataset.categoryname);
       // this.$router.push("/search");
+    },
+    // 当鼠标移入时，页面是search时，让商品分类列表进行展示
+    enterShow() {
+      if (this.$route.path !== "/home") {
+        this.show = true;
+      }
+    },
+    leaveShow() {
+      // 原先的鼠标移出事件
+      this.leaveIndex();
+      if (this.$route.path !== "/home") {
+        this.show = false;
+      }
     },
   },
 };

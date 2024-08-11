@@ -632,6 +632,27 @@ goSearch(event) {
 
 # 16 实战-search模块 商品分类(typeNav)+过渡动画（P30）
 由于search模块也需要使用要typeNav三级联动组件（但typeNav已经是一个全局组件无需再引入）
+但是在search页面中，typeNav的一级目录默认折叠，当鼠标移上去时才会进行展示并且有过渡动画效果。（即本p需实现效果）
+1. 控制typeNav在search页默认隐藏，但在home页是默认展开 --> v-if / v-show --> v-show(在typeNav组件)
+```js
+// components/typeNav的index.vue 
+    <div @mouseleave="leaveShow" @mouseenter="enterShow">
+
+    // 当鼠标移入时，页面是search时，让商品分类列表进行展示
+    enterShow() {
+      if (this.$route.path !== "/home") {
+        this.show = true;
+      }
+    },
+    leaveShow() {
+      // 原先的鼠标移出事件
+      this.leaveIndex();
+      if (this.$route.path !== "/home") {
+        this.show = false;
+      }
+    },
+```
+2. 过渡动画 --得有v-if|v-show才能进行过渡动画
 
 
 
