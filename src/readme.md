@@ -586,6 +586,51 @@ goSearch() {
 ```
 问题：不卡顿；但是最后每个a标签都要绑定自己的回调，循环还是会导致有1000+个回调函数
 
+最佳解决方案：编程式导航+事件委派 (视频P28)
+即：依然使用goSearch方法（编程式导航），但将@click不写到a标签里而是a标签的外面（事件委派）
+```js
+<div class="all-sort-list2" @click="goSearch">
+    ...other code
+    <a>{{ c1.categoryName }}</a>
+    ...other code
+</div>    
+```
+利用时间委派有些问题需处理：
+1.事件委派是添加在a标签的父元素上的，但父元素下不止有a标签，我们需要的是点击a的时候才跳转，但怎么知道点击是a标签
+2.如何获取参数【1、2、3级分类的产品名字和id】，即就算点击的是a标签，如何区分一/二/三级分类的标签呢
+
+解决方法：利用自定义属性
+解决问题1：给a标签子元素，加上:data-categoryName自定义属性，而其余子节点没有
+    -- event.target.getAttribute('自定义属性') --getAttribute() 返回元素上一个指定的属性值。
+    -- event.target.dataset --只读属性 dataset 提供了对元素上自定义数据属性（data-*）读/写访问。(来自MDN)
+```js
+<a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName }}</a>
+// 自定义属性用驼峰命名的，获取的时候记得小写
+goSearch(event) {
+    let el = event.target;
+    // dataset获取节点的自定义属性和属性值，但dataset为es6新增，有的
+    // 自定义属性用驼峰命名的，获取的时候记得小写
+    let { categoryname, category1id, category2id, category3id } = el.dataset;
+    let location = { name: "search" };
+    let query = { categoryName: categoryname };
+    // 如果标签身上拥有categoryname的话，则这个标签一定是a标签
+    if (categoryname) {
+    if (category1id) {
+        query.category1Id = category1id;
+    } else if (category2id) {
+        query.category2Id = category2id;
+    } else if (category3id) {
+        query.category3Id = category3id;
+    }
+    }
+    location.query = query;
+    this.$router.push(location);
+    // console.log('event.target.dataset.categoryname :>> ', event.target.dataset.categoryname);
+    // this.$router.push("/search");
+},
+```
+
+
 
 
 

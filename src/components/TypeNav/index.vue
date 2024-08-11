@@ -7,7 +7,7 @@
         <h2 class="all">全部商品分类</h2>
         <!-- 三级联动 -->
         <div class="sort">
-          <div class="all-sort-list2">
+          <div class="all-sort-list2" @click="goSearch">
             <div
               class="item"
               v-for="(c1, index) in categoryList"
@@ -15,7 +15,11 @@
               :class="{ cur: currentIndex == index }"
             >
               <h3 @mouseenter="changeIndex(index)">
-                <a @click="goSearch">{{ c1.categoryName }}</a>
+                <a
+                  :data-categoryName="c1.categoryName"
+                  :data-category1Id="c1.categoryId"
+                  >{{ c1.categoryName }}</a
+                >
               </h3>
               <!-- 二级、三级分类 -->
               <div
@@ -29,11 +33,19 @@
                 >
                   <dl class="fore">
                     <dt>
-                      <a @click="goSearch">{{ c2.categoryName }}</a>
+                      <a
+                        :data-categoryName="c2.categoryName"
+                        :data-category2Id="c2.categoryId"
+                        >{{ c2.categoryName }}</a
+                      >
                     </dt>
                     <dd>
                       <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a @click="goSearch">{{ c3.categoryName }}</a>
+                        <a
+                          :data-categoryName="c3.categoryName"
+                          :data-category3Id="c3.categoryId"
+                          >{{ c3.categoryName }}</a
+                        >
                       </em>
                     </dd>
                   </dl>
@@ -99,8 +111,27 @@ export default {
     leaveIndex() {
       this.currentIndex = -1;
     },
-    goSearch() {
-      this.$router.push("/search");
+    goSearch(event) {
+      let el = event.target;
+      // dataset获取节点的自定义属性和属性值，但dataset为es6新增，有的
+      // 自定义属性用驼峰命名的，获取的时候记得小写
+      let { categoryname, category1id, category2id, category3id } = el.dataset;
+      let location = { name: "search" };
+      let query = { categoryName: categoryname };
+      // 如果标签身上拥有categoryname的话，则这个标签一定是a标签
+      if (categoryname) {
+        if (category1id) {
+          query.category1Id = category1id;
+        } else if (category2id) {
+          query.category2Id = category2id;
+        } else if (category3id) {
+          query.category3Id = category3id;
+        }
+      }
+      location.query = query;
+      this.$router.push(location);
+      // console.log('event.target.dataset.categoryname :>> ', event.target.dataset.categoryname);
+      // this.$router.push("/search");
     },
   },
 };
