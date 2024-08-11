@@ -630,6 +630,10 @@ goSearch(event) {
 },
 ```
 
+# 16 实战-search模块 商品分类(typeNav)+过渡动画（P30）
+由于search模块也需要使用要typeNav三级联动组件（但typeNav已经是一个全局组件无需再引入）
+
+
 
 
 

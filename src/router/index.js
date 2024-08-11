@@ -63,7 +63,8 @@ export default new VueRouter({
             meta: { show: false },
         },
         {
-            path: '/search/:keyword',    // 使用params传参时 需要有占位符(记住:前面要有/)
+            // path: '/search/:keyword',    // 使用params传参时 需要有占位符(记住:前面要有/)
+            path: '/search',
             name: 'search',
             component: Search,
             meta: { show: true },
