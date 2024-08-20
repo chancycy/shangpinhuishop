@@ -652,7 +652,27 @@ goSearch(event) {
       }
     },
 ```
-2. 过渡动画 --得有v-if|v-show才能进行过渡动画
+2. 过渡动画 前提--组件/元素上得有v-if|v-show才能进行过渡动画
+使用`<transition name="sort"></transition>`包裹住需要添加动画的部分，对于本次实战来说，是三级联动部分。
+有点忘记怎么写了，正好复习下。
+    name 属性是用来自定义过渡类名前缀。
+    css样式中：
+```js
+// 过渡动画的样式
+.sort-enter {
+    // 过渡动画开始阶段
+    height: 0;
+}
+.sort-enter-to {
+    // 过渡动画结束阶段
+    height: 461px;
+}
+.sort-enter-active {
+    // 定义动画时间、速率等
+    transition: all 0.5s linear;
+}
+```
+
 
 
 
