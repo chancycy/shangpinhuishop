@@ -95,11 +95,13 @@ export default {
     }),
   },
 
-  // 之前数据是模拟写死的，现在要从接口里拿真实的了
-  // 即组件挂载完毕 向服务器发请求
   mounted() {
-    // 通知vuex发请求，获取数据，存在仓库中
-    this.$store.dispatch("categoryList");
+    // 20240930 看视频p30的时候忽然发现这里我少了这个判断show=f忘记加了
+    //当组件挂载完毕，让show属性变为false
+    //如果不是Home路由组件，将typeNav进行隐藏
+    if (this.$route.path != "/home") {
+      this.show = false;
+    }
   },
   methods: {
     // 鼠标进入修改响应式数据currentIndex

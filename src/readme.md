@@ -630,7 +630,7 @@ goSearch(event) {
 },
 ```
 
-# 16 实战-search模块 商品分类(typeNav)+过渡动画（P30）
+# 16 实战-search模块 商品分类(typeNav)+过渡动画（P29）
 由于search模块也需要使用要typeNav三级联动组件（但typeNav已经是一个全局组件无需再引入）
 但是在search页面中，typeNav的一级目录默认折叠，当鼠标移上去时才会进行展示并且有过渡动画效果。（即本p需实现效果）
 1. 控制typeNav在search页默认隐藏，但在home页是默认展开 --> v-if / v-show --> v-show(在typeNav组件)
@@ -671,6 +671,27 @@ goSearch(event) {
     // 定义动画时间、速率等
     transition: all 0.5s linear;
 }
+```
+## 16-2 实战-- 优化切换页面时，频繁调用typeNav数据生成的接口问题
+由于三级联动typeNav的商品分类列表数据是通过调用接口来的，数据存在vuex的state中，在src\components\TypeNav\index.vue中的mounted中，调用接口获得。**Vue在路由切换的时候会销毁旧路由**，当我们再次使用三级列表全局组件时还会发一次请求。
+```js
+  // 之前数据是模拟写死的，现在要从接口里拿真实的了
+  // 即组件挂载完毕 向服务器发请求
+  mounted() {
+    // 通知vuex发请求，获取数据，存在仓库中
+    this.$store.dispatch("categoryList");
+  },
+```
+这会导致，由于home页和search页都有引入typeNav全局组件，当页面出现时，都会渲染typeNav组件，都会调用categoryList接口去获取三级联动的内容。但实际这是完全没必要的，因为我typeNav里的数据又不会频繁改动（至少在这个项目是的），那么这个时候，我在home页和search页来回不停切换，就会不停的调用接口浪费性能、资源。
+解决方法：
+由于信息都是一样的，出于性能的考虑我们希望该数据只请求一次，所以我们把这次请求放在App.vue的mounted中。（根组件App.vue的mounted只会执行一次）path:src\App.vue
+```js
+  // 之前数据是模拟写死的，现在要从接口里拿真实的了
+  // 即组件挂载完毕 向服务器发请求
+  mounted() {
+    // 通知vuex发请求，获取数据，存在仓库中
+    this.$store.dispatch("categoryList");
+  },
 ```
 
 

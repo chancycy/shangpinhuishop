@@ -16,6 +16,10 @@ cd shangpinhuishop
 ```
 npm config set registry http://registry.npm.taobao.org
 ```
+### 部分笔记参考着下面仓库
+```
+git clone https://github.com/wearetheone777/shangpinhuishop.git
+```
 ## 安装依赖
 ```
 npm install
