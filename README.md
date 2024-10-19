@@ -16,9 +16,12 @@ cd shangpinhuishop
 ```
 npm config set registry http://registry.npm.taobao.org
 ```
-### 部分笔记参考着下面仓库
+### 部分笔记参考下面仓库
 ```
-git clone https://github.com/wearetheone777/shangpinhuishop.git
+1:尚品汇源码Gitee地址
+https://gitee.com/jch1011/shangpinhui_0415.git
+2：后台管理系统源码Gitee地址（本项目中未使用到）
+https://gitee.com/jch1011/guigu.git
 ```
 ## 安装依赖
 ```
