@@ -134,6 +134,9 @@ export default {
           query.category3Id = category3id;
         }
       }
+      if (this.$route.params) {
+        location.params = this.$route.params;
+      }
       location.query = query;
       this.$router.push(location);
       // console.log('event.target.dataset.categoryname :>> ', event.target.dataset.categoryname);

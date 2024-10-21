@@ -29,6 +29,15 @@
 
 ```
 
+# 0.总结npm i
+1. 下载好项目后，首先配置npm淘宝镜像（防止下载缓慢）`npm config set registry http://registry.npm.taobao.org`
+2. 运行`npm i` 然后`npm list`查看vue版本、vuex版本、VueRouter版本
+3. 查看有无 less-loader，没有则`npm install --save less-loader`
+4. nprogress，没有则`npm i nprogress`
+5. axios `npm i axios`
+6. 
+
+
 # 1、各目录介绍
 - public文件夹：静态资源，webpack进行打包的时候会原封不动打包到dist文件夹中。
   - public/index.html是一个模板文件，作用是生成项目的入口文件，webpack打包的js,css也会自动注入到该页面中。我们浏览器访问项目的时候就会默认打开生成好的index.html。
@@ -672,7 +681,7 @@ goSearch(event) {
     transition: all 0.5s linear;
 }
 ```
-## 16-2 实战-- 优化切换页面时，频繁调用typeNav数据生成的接口问题
+## 16-2 实战-- 优化切换页面时，频繁调用typeNav数据生成的接口问题(p30)
 由于三级联动typeNav的商品分类列表数据是通过调用接口来的，数据存在vuex的state中，在src\components\TypeNav\index.vue中的mounted中，调用接口获得。**Vue在路由切换的时候会销毁旧路由**，当我们再次使用三级列表全局组件时还会发一次请求。
 ```js
   // 之前数据是模拟写死的，现在要从接口里拿真实的了
@@ -693,6 +702,51 @@ goSearch(event) {
     this.$store.dispatch("categoryList");
   },
 ```
+
+# 17 合并搜索时的params与query参数
+时间：2024年10月20日17:56:42 由于三级联动接口崩了503，所以无法看到页面展示，以下代码属于盲写，需等接口通了后再自行验证
+home页跳转search页的两种方法：
+    1. 点击三级联动组件的某一个商品--src\components\TypeNav\index.vue的goSearch方法
+    2. 在搜索框输入，点击搜索按钮跳转--src\components\Header\index.vue的goSearch方法
+场景：点击了三级联动的手机（调用方法1，携带query参数categoryname和id）跳转到的search页面，再在搜索框里搜索了“华为”（search页面头部是header组件）（调用方法2 携带params参数keyword）
+由于1方法跳转时我们目前的处理只携带了query参数，就会导致“华为”这个keyword参数无法在页面跳转时传递，所以需要我们修改两个文件的goSearch方法，让goSearch方法不仅仅接收query参数，也能接收params参数
+    即1方法有query参数而params参数为空，2方法有params参数而query参数为空。我们从home跳到search，params和query参数只能二带一。这当然不行，需进行**合并参数**。
+path:src\components\TypeNav\index.vue
+```js
+    location.query = query;
+    this.$router.push(location);
+```
+改后：加个if判断条件 将params参数放入
+```js
+    if (this.$route.params) {
+        location.params = this.$route.params
+    }
+```
+path:src\components\Header\index.vue
+```js
+    this.$router.push(
+        {
+          name: "search",
+          // query: { k: this.keyword.toUpperCase() }, // 本身这个也是我们在示例时才加的 当点搜索时，我们要的只是keyword搜索关键字
+          params: { keyword: this.keyword },
+        }
+      );
+```
+改后：
+```js
+    let location = {
+        name: "search",
+        // query: { k: this.keyword.toUpperCase() }, // 本身这个也是我们在示例时才加的 当点搜索时，我们要的只是keyword搜索关键字
+        params: { keyword: this.keyword },
+    };
+    if (this.$route.query) {
+        location.query = this.$route.query;
+    }
+    this.$router.push(location);
+```
+
+个人见解：本期主要是要知道如何去合并params和query参数，条件判断放在哪其实不是本期所注重的。
+
 
 
 
