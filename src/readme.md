@@ -747,6 +747,19 @@ path:src\components\Header\index.vue
 
 个人见解：本期主要是要知道如何去合并params和query参数，条件判断放在哪其实不是本期所注重的。
 
+# 18 开发listContainer和Floor组件
+
+## 18-1 利用mock.js模拟两个组件所需数据
+特意未提供接口，目的就是学习如何使用mock
+http://mockjs.com/  官方地址
+1. 安装mockjs `npm i mockjs`或者`npm i --save mockjs`（后者没试过，因为我前者就直接成功了）
+2. 在src下创建目录夹mock
+3. 准备json数据
+   1. 首页广告轮播数据: src/mock/banner.json
+   2. 首页楼层数据: src/mock/floor.json
+4. 把mock数据需要的图片放置于public文件夹中 例如banner.json的image1234（本来这些图就在src\pages\Home\ListContainer\images里，现在cv到public\images里（在这里 给public下建立一个文件夹images存放image） floor要的图片同理也是要放进去的
+5. 在mock文件夹中创建一个mockServe.js文件
+
 
 
 
