@@ -12,6 +12,8 @@ import store from '@/store';
 // import TypeNav from './pages/Home/TypeNav'  // 引入
 import TypeNav from '@/components/TypeNav'  // 在13时改了存放地址
 
+import '@/mock/mockServe';  // 引入mock数据
+
 // 第一个参数————全局组件名字；第二个参数————全局组件
 Vue.component(TypeNav.name, TypeNav) // 注册
 

@@ -756,9 +756,10 @@ http://mockjs.com/  官方地址
 2. 在src下创建目录夹mock
 3. 准备json数据
    1. 首页广告轮播数据: src/mock/banner.json
-   2. 首页楼层数据: src/mock/floor.json
+   2. 首页楼层（家用电器部分）数据: src/mock/floor.json
 4. 把mock数据需要的图片放置于public文件夹中 例如banner.json的image1234（本来这些图就在src\pages\Home\ListContainer\images里，现在cv到public\images里（在这里 给public下建立一个文件夹images存放image） floor要的图片同理也是要放进去的
-5. 在mock文件夹中创建一个mockServe.js文件
+5. 在mock文件夹中创建一个mockServe.js文件,引入mockjs来实现模拟数据
+6. 将mockServe.js在main.js中引入(即在入口文件执行一次 才能模拟数据)
 
 
 
