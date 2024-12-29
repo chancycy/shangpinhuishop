@@ -256,6 +256,7 @@ Vue.component(TypeNav.name, TypeNav) // 注册
 axios中文文档，包含详细信息。
 [https://www.kancloud.cn/yunye/axios/234845](https://www.kancloud.cn/yunye/axios/234845)
 在根目录下创建api文件夹，创建request.js文件。
+（在视频p33发现request.js文件名更改为ajax.js）
 内容如下，当前文件代码还比较少，后续有需求可以增添内容。
 ```js
 import axios from "axios";
@@ -290,6 +291,7 @@ export default requests;
 ```js
 //当前模块，API进行统一管理，即对请求接口统一管理
 import requests from "@/api/request";
+// （在视频p33发现request.js文件名更改为ajax.js）
 
 //首页三级分类接口
 export const reqCateGoryList = () => {
@@ -311,6 +313,7 @@ reqCateGoryList();
 导入了三级联动接口后，进行单元测试发现404了，是因为存在跨域问题
 什么是跨域：协议、域名、端口号不同请求。
 解决方法1：在api/request.js文件里将baseUrl从'/api'改成了'http://gmall-h5-api.atguigu.cn'接口地址
+（在视频p33发现request.js文件名更改为ajax.js）
 解决方法2：通过代理服务器来解决跨域。在vue.config.js文件中进行如下修改：（加上devServer）
 ```js
 module.exports = {
@@ -338,7 +341,7 @@ module.exports = {
 # 11、nprogress进度条插件
 我们页面加载时发起了一个请求，此时页面上方出现蓝色进度条。
 即调用接口的时候给点反应（给个进度条表示加载情况）
-打开一个页面时，往往会伴随一些请求，并且会在页面上方出现进度条。它的原理时，在我们发起请求的时候开启进度条，在请求成功后关闭进度条，所以只需要在request.js中进行配置。
+打开一个页面时，往往会伴随一些请求，并且会在页面上方出现进度条。它的原理时，在我们发起请求的时候开启进度条，在请求成功后关闭进度条，所以只需要在request.js中进行配置。（在视频p33发现request.js文件名更改为ajax.js）
     （在请求和响应拦截器做。请求时开始请求开启，响应成功后结束）
 
 先`npm i nprogress`
@@ -349,7 +352,7 @@ import nprogress from 'nprogress';
 //引入进度条样式
 import "nprogress/nprogress.css";
 ```
-再在request.js里的请求拦截器和响应拦截器里调用
+再在request.js里的请求拦截器和响应拦截器里调用（在视频p33发现request.js文件名更改为ajax.js）
 ```js
 // 请求拦截器：在发请求之前，请求拦截器可以检测到，可以在请求发出前做一些事情
 requests.interceptors.request.use((config) => {
@@ -747,3 +750,8 @@ Mock.mock("mock/floor", { code: 200, data: floor })
 ```
 6. 将mockServe.js在main.js中引入(即在入口文件执行一次 才能模拟数据)
    1. `import '@/mock/mockServe';  // 引入mock数据`
+
+## 18-2 对比教学视频发现文件名的修改
+原路径`src\api\request.js`的文件名修改为了`src\api\ajax.js`，对比后发现内容不变，只修改了名称。因此需要修改所有有引入的地方。
+1. 修改文件名为ajax.js
+2. src\api\index.js里`import requests from "./request";`修改为`import requests from "./ajax";`

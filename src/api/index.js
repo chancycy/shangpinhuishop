@@ -1,7 +1,7 @@
 // 对api进行统一管理
 // 接口：http://gmall-h5-api.atguigu.cn
 
-import requests from "./request";
+import requests from "./ajax";
 
 // 三级联动接口 /api/product/getBaseCategoryList get 无参数
 export const reqCategoryList = () => {
