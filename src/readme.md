@@ -755,3 +755,9 @@ Mock.mock("mock/floor", { code: 200, data: floor })
 原路径`src\api\request.js`的文件名修改为了`src\api\ajax.js`，对比后发现内容不变，只修改了名称。因此需要修改所有有引入的地方。
 1. 修改文件名为ajax.js
 2. src\api\index.js里`import requests from "./request";`修改为`import requests from "./ajax";`
+
+## 18-3 --对应视频p33
+1. copy一份ajax.js命名为mockAjax.js
+   1. ajax.js是向真实的服务器发请求;而mockAjax是向mock发请求
+2. 修改mockAjax里的baseUrl
+   1. 修改接口路径，去除掉最前面的/api，改回在baseUrl里统一用。

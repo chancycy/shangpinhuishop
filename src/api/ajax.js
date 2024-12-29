@@ -13,6 +13,7 @@ import "nprogress/nprogress.css"
 const requests = axios.create({
     // 因为接口都是以api开头的，所以加上这句后每次调用的时候就可以少写'api/'(不用自己手动去写)
     // baseURL: 'http://gmall-h5-api.atguigu.cn',    // 看评论好像没用（或者要求大写etc
+    baseURL: '/api',
     timeout: 5000,   // 请求超过5s没反应就算超时
 })
 

@@ -7,7 +7,7 @@ import requests from "./ajax";
 export const reqCategoryList = () => {
     // 发请求 axios发请求会返回Promise对象
     return requests({
-        url: '/api/product/getBaseCategoryList',
+        url: '/product/getBaseCategoryList',
         method: 'get',
     })
 }
