@@ -11,3 +11,10 @@ export const reqCategoryList = () => {
         method: 'get',
     })
 }
+
+// mock数据接口
+// requests引入的接口是'/api/'开头的,我们得引入'/mock'开头的mockRequests
+import mockRequests from "./mockAjax";
+
+// 获取banner（home首页轮播图的数据）
+export const reqGetBannerList = () => mockRequests.get('/banner')

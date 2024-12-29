@@ -756,8 +756,22 @@ Mock.mock("mock/floor", { code: 200, data: floor })
 1. 修改文件名为ajax.js
 2. src\api\index.js里`import requests from "./request";`修改为`import requests from "./ajax";`
 
-## 18-3 --对应视频p33
+## 18-3 借助mock获取banner轮播图--对应视频p33
 1. copy一份ajax.js命名为mockAjax.js
    1. ajax.js是向真实的服务器发请求;而mockAjax是向mock发请求
-2. 修改mockAjax里的baseUrl
-   1. 修改接口路径，去除掉最前面的/api，改回在baseUrl里统一用。
+2. 修改url
+   1. src\api\index.js修改接口路径，去除掉最前面的/api，改回在baseUrl里统一用。
+      - 由`/api/product/...`变成`url: '/product/getBaseCategoryList',`
+   2. 修改mockAjax里的baseUrl
+      - 由`baseURL: '/api'`改为`baseURL: 'mock'`
+3. 修改src\api\index.js的引入
+```js
+// mock数据接口
+// requests引入的接口是'/api/'开头的,我们得引入'/mock'开头的mockRequests
+import mockRequests from "./mockAjax";
+
+// 获取banner（home首页轮播图的数据）
+export const reqGetBannerList = () => mockRequests.get('/banner')
+```
+4. 在store对应文件里和mockRequests的api进行交互，调用接口(未完成)
+5. 在`src\pages\Home\ListContainer\index.vue`里通过store调用接口拿数据（未完成）

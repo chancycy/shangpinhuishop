@@ -1,6 +1,6 @@
 // home模块的小仓库
 
-import { reqCategoryList } from '@/api';
+import { reqCategoryList, reqGetBannerList } from '@/api';
 
 const state = {
     categoryList: [],
