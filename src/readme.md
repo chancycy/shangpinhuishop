@@ -773,23 +773,54 @@ import mockRequests from "./mockAjax";
 // 获取banner（home首页轮播图的数据）
 export const reqGetBannerList = () => mockRequests.get('/banner')
 ```
-4. 在store对应文件里和mockRequests的api进行交互，调用接口(未完成)
+4. 在store对应文件里和mockRequests的api进行交互，调用接口
    1. 发现视频前后又有出入，对store里的reqCategoryList的action和mutations进行修改，修改函数命名及action里的逻辑（逻辑修改很简单，略过介绍）
-   2. action变化如下:
+   2. 三级菜单数据action变化如下:
+        ```js
+        // old
+            // 通过api里的接口函数调用，向服务器发请求，获取服务器的数据
+            async categoryList({ commit }) {
+                let { data } = await reqCategoryList()
+                // 我这里直接默认请求成功哈
+                commit("CATEGORYLIST", data)
+            }
+        // new
+            async getCategoryList({ commit }) {
+                let result = await reqCategoryList()
+                if (result.code === 200) {
+                    commit("GETCATEGORYLIST", result.data)
+                }
+            }
+        ```
+    3. 回归正题--banner调用mockRequests变化如下:
+        ```js
+        // action
+            async getBannerList({ commit }) {
+                let res = await reqGetBannerList()
+                if (res.code === 200) {
+                    commit('GETBANNERLIST', res.data)
+                }
+            }
+        // mutations
+            GETBANNERLIST(state, bannerList) {
+                state.bannerList = bannerList
+            }
+        ```
+5. 在`src\pages\Home\ListContainer\index.vue`里通过store调用接口拿数据
 ```js
-// old
-    // 通过api里的接口函数调用，向服务器发请求，获取服务器的数据
-    async categoryList({ commit }) {
-        let { data } = await reqCategoryList()
-        // 我这里直接默认请求成功哈
-        commit("CATEGORYLIST", data)
-    }
-// new
-    async getCategoryList({ commit }) {
-        let result = await reqCategoryList()
-        if (result.code === 200) {
-            commit("GETCATEGORYLIST", result.data)
-        }
-    }
+  mounted() {
+    // 派发action
+    this.$store.dispatch("getBannerList");
+  },
 ```
-1. 在`src\pages\Home\ListContainer\index.vue`里通过store调用接口拿数据（未完成）
+使用数据
+```js
+import { mapState } from 'vuex';
+  computed: {
+    ...mapState({
+      bannerList: state => state.home.bannerList
+    })
+  }
+```
+
+至此,在listContainer中已经有了从vuex中引入的mock数据bannerList,但还未放到swiper中使用.
