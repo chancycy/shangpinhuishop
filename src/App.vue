@@ -24,7 +24,7 @@ export default {
   // 即组件挂载完毕 向服务器发请求
   mounted() {
     // 通知vuex发请求，获取数据，存在仓库中
-    this.$store.dispatch("categoryList");
+    this.$store.dispatch("getCategoryList");
   },
 };
 </script>

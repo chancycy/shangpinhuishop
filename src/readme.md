@@ -774,4 +774,22 @@ import mockRequests from "./mockAjax";
 export const reqGetBannerList = () => mockRequests.get('/banner')
 ```
 4. 在store对应文件里和mockRequests的api进行交互，调用接口(未完成)
-5. 在`src\pages\Home\ListContainer\index.vue`里通过store调用接口拿数据（未完成）
+   1. 发现视频前后又有出入，对store里的reqCategoryList的action和mutations进行修改，修改函数命名及action里的逻辑（逻辑修改很简单，略过介绍）
+   2. action变化如下:
+```js
+// old
+    // 通过api里的接口函数调用，向服务器发请求，获取服务器的数据
+    async categoryList({ commit }) {
+        let { data } = await reqCategoryList()
+        // 我这里直接默认请求成功哈
+        commit("CATEGORYLIST", data)
+    }
+// new
+    async getCategoryList({ commit }) {
+        let result = await reqCategoryList()
+        if (result.code === 200) {
+            commit("GETCATEGORYLIST", result.data)
+        }
+    }
+```
+1. 在`src\pages\Home\ListContainer\index.vue`里通过store调用接口拿数据（未完成）
